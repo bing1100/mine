@@ -4,14 +4,10 @@
 public class back_grid {
     public static void main(String args[]){
 
-        grid test1 = new grid();
-
-        test1.h=3;
-        test1.w=3;
-        test1.pop="000000000";
-
+        grid test1 = new grid(3,3,"000000000");
+        System.out.println("hi");
         test1.create();
-        test1.print();
+        test1.print(0,0);
     }
 
 }

@@ -5,15 +5,19 @@ public class grid {
     int w;
     int h;
     String pop;
-    cell[][] grid;
+    cell[][] grid = new cell[w][h];
 
+    grid(int h, int w, String pop){
+        h = h;
+        w = w;
+        pop = pop;
+    }
 
-    public void create(){
-        cell[][] grid = new cell[w][h];
+    public void create() {
+        System.out
         for(int k = 0; k < h; k++) {
             for (int j = 0; j < w; j++) {
                 grid[j][k] = new cell();
-                grid[j][k].value = (int) pop.charAt(k * h + j);
             }
         }
     }
@@ -26,10 +30,14 @@ public class grid {
         }
     }
 
-    public void print(){
+    public void print(int a, int b){
+        System.out.println(grid[a][b].value);
+    }
+
+    public void print_grid(){
         for(int k = 0; k < h; k++) {
             for (int j = 0; j < w; j++) {
-                System.out.println(grid[k][j].value + " ");
+                System.out.println(grid[k][j].value + "|");
             }
             System.out.println();
         }
