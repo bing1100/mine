@@ -5,10 +5,11 @@ public class grid {
     int w;
     int h;
     String pop;
-    cell[][] grid = new cell[w][h];
+    cell[][] grid;
 
 
     public void create(){
+        cell[][] grid = new cell[w][h];
         for(int k = 0; k < h; k++) {
             for (int j = 0; j < w; j++) {
                 grid[j][k] = new cell();
