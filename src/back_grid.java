@@ -6,8 +6,7 @@ public class back_grid {
 
         grid test1 = new grid(3,3,"000000000");
         System.out.println("hi");
-        test1.create();
-        test1.print(0,0);
+        test1.print_grid();
     }
 
 }

@@ -5,16 +5,14 @@ public class grid {
     int w;
     int h;
     String pop;
-    cell[][] grid = new cell[w][h];
+    cell[][] grid;
 
-    grid(int h, int w, String pop){
-        h = h;
-        w = w;
-        pop = pop;
-    }
+    grid(int height, int width, String population){
+        h = height;
+        w = width;
+        pop = population;
+        grid = new cell[w][h];
 
-    public void create() {
-        System.out
         for(int k = 0; k < h; k++) {
             for (int j = 0; j < w; j++) {
                 grid[j][k] = new cell();
@@ -35,9 +33,10 @@ public class grid {
     }
 
     public void print_grid(){
+        System.out.println("Printing Grid");
         for(int k = 0; k < h; k++) {
             for (int j = 0; j < w; j++) {
-                System.out.println(grid[k][j].value + "|");
+                System.out.print(grid[k][j].value + "|");
             }
             System.out.println();
         }
