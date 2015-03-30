@@ -1,6 +1,13 @@
 /**
  * Created by bing on 2015-03-28.
  */
+
+// Value is:
+// -2 - unknown
+// -1 - bomb
+// 0 - blank
+// 1 to 8 - how many bombs surround it
+
 public class cell {
     int value;
     cell above;
