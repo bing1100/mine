@@ -2,30 +2,179 @@
  * Created by bing on 2015-03-29.
  */
 public class solver {
-    cell current;
-
 
     solver(grid cgrid){
-        current = cgrid.origin;
-        int h = cgrid.h;
-        int w = cgrid.w;
+        for(int j=0;j<cgrid.passkey.length();j++){
+            mini_solve(cgrid,j);
+        }
+    }
 
-        cell store=cgrid.origin;
-        cell cur=cgrid.origin;
-        solve_mini a;
+    private StringBuffer mini_grid(int loc ,int h, int w, StringBuffer key){
+        StringBuffer work = new StringBuffer();
+        if (loc%w==0){
+            for(int j=0; j<9; j++) {
+                if(j%3==0){
+                    work.setCharAt(j,'-');
+                }
+                if(loc-w+j<0){
+                    work.setCharAt(j,'-');
+                }
+                if(loc-w+j>w*h-1){
+                    work.setCharAt(j,'-');
+                }
+                work.setCharAt(j, key.charAt(loc-w+j-1));
+            }
+        } else if ((loc-w+1)%w==0){
+            for(int j=0; j<9; j++) {
+                if((j-w+1)%3==0){
+                    work.setCharAt(j,'-');
+                }
+                if(loc-w+j<0){
+                    work.setCharAt(j,'-');
+                }
+                if(loc-w+j>w*h-1){
+                    work.setCharAt(j,'-');
+                }
+                work.setCharAt(j, key.charAt(loc-w+j-1));
+            }
+        } else{
+            for(int j=0; j<9; j++) {
+                if(loc-w+j<0){
+                    work.setCharAt(j,'-');
+                }
+                if(loc-w+j>w*h-1){
+                    work.setCharAt(j,'-');
+                }
+                work.setCharAt(j, key.charAt(loc-w+j-1));
+            }
+        }
+        return work;
+    }
 
-        for (int j=0; j<h;j++){
-            for(int k=0;k<w;k++){
-                if (cur.value>0) {
-                    a = new solve_mini(cur);
+    private void mini_solve(grid grid, int loc){
+        int h = grid.h;
+        int w = grid.w;
+        StringBuffer key = grid.passkey;
+        StringBuffer mini_grid = mini_grid(loc,h,w,key);
+
+        class m_grid{
+            StringBuffer key;
+            m_grid(StringBuffer key){
+                this.key=key;
+            }
+
+            class storage{
+                StringBuffer[] list;
+                int[] sollist;
+                storage(){
+                    list=new StringBuffer[70];
+                    sollist=new int[9];
+                    for(int j=0; j<70; j++){
+                        list[j]=new StringBuffer('-');
+                    }
+                    for(int j=0; j<9; j++){
+                        sollist[j]=1;
+                    }
 
                 }
-                cur=cur.right;
+                public void set_new(StringBuffer solution){
+                    for(int j=0; j<70; j++){
+                        if(list[j]==new  StringBuffer('-')){
+                            list[j]=solution;
+                            break;
+                        }
+                    }
+                }
+                private void set_sollist(int location){
+                    for(int j=0; j<70; j++){
+                        if(sollist[j]==-1){
+                            sollist[j]=location;
+                            break;
+                        }
+                    }
+                }
+                public void compare_sol(){
+                    for(int j=0; j<9; j++){
+                        for(StringBuffer k:list){
+                            if(j!=5){
+                                if(k.charAt(j)!='*'){
+                                    sollist[j]=0;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
-            System.out.println();
-            store=store.below;
-            cur=store.below;
+
+            public int count_bombs(){
+                int count=0;
+                for(int j=0; j<9; j++){
+                    if(key.charAt(j)=='*'){
+                        count++;
+                    }
+                }
+                return count;
+            }
+            public int count_free(){
+                int count=0;
+                for(int j=0; j<9; j++){
+                    if(key.charAt(j)=='0'){
+                        count++;
+                    }
+                }
+                return count;
+            }
+            public void set_click(){
+                for(int j=0; j<9; j++){
+                    if(key.charAt(j)=='0'){
+                        key.setCharAt(j,'#');
+                    }
+                }
+            }
+            public void set_bomb(){
+                for(int j=0; j<9; j++){
+                    if(key.charAt(j)=='0'){
+                        key.setCharAt(j,'*');
+                    }
+                }
+            }
+            public void simple(){
+                key.setCharAt(5, (char) (((int) key.charAt(5))- count_bombs()));
+            }
+            public void solve(){
+
+            }
+            public void smart_solve(){
+
+            }
         }
+
+        m_grid curr = new m_grid(key);
+
+        if(mini_grid.charAt(5)!='0'){
+            if(mini_grid.charAt(5)!='*'){
+                curr.simple();
+                int loc_int = (int) mini_grid.charAt(5);
+                int bombsnum=curr.count_bombs();
+                int freesnum=curr.count_free();
+                if(bombsnum==loc_int){
+                    curr.set_click();
+                } else if (freesnum==loc_int){
+                    curr.set_bomb();
+                } else {
+                    curr.smart_solve();
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
 
 }

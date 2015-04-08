@@ -26,7 +26,7 @@ public class solve_mini {
     }
 
     public void solve_3b3(){
-        
+
     }
 
 }

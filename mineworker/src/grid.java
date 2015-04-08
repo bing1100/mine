@@ -7,6 +7,8 @@ public class grid {
 
     cell origin;
 
+    StringBuffer passkey;
+
     grid(int width, int height){
         w=width;
         h=height;
@@ -48,7 +50,8 @@ public class grid {
         }
     }
 
-    public void updatevalue(String key){
+    public void updatevalue(StringBuffer key){
+        passkey=key;
         cell store=origin;
         cell curr=origin;
         for (int j=0; j<h;j++){
