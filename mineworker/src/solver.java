@@ -1,6 +1,5 @@
-/**
- * Created by bing on 2015-03-29.
- */
+
+
 public class solver {
 
     solver(grid cgrid){
@@ -66,11 +65,13 @@ public class solver {
             class storage{
                 StringBuffer[] list;
                 int[] sollist;
+                Character var1='-';
+
                 storage(){
                     list=new StringBuffer[70];
                     sollist=new int[9];
                     for(int j=0; j<70; j++){
-                        list[j]=new StringBuffer('-');
+                        list[j]=new StringBuffer(var1);
                     }
                     for(int j=0; j<9; j++){
                         sollist[j]=1;
@@ -79,7 +80,7 @@ public class solver {
                 }
                 public void set_new(StringBuffer solution){
                     for(int j=0; j<70; j++){
-                        if(list[j]==new  StringBuffer('-')){
+                        if(list[j]==new  StringBuffer(var1)){
                             list[j]=solution;
                             break;
                         }
@@ -143,11 +144,35 @@ public class solver {
             public void simple(){
                 key.setCharAt(5, (char) (((int) key.charAt(5))- count_bombs()));
             }
-            public void solve(){
-
+            public StringBuffer smart_solve(StringBuffer mini_grid, storage store){
+                m_grid n_curr = new m_grid(mini_grid);
+                for(int j =0; j<9;j++){
+                    if(mini_grid.charAt(j)==0){
+                        mini_grid.setCharAt(j,'*');
+                        
+                        if(mini_grid.charAt(5)!='0'){
+                            if(mini_grid.charAt(5)!='*'){
+                                n_curr.simple();
+                                int loc_int = (int) mini_grid.charAt(5);
+                                int bombsnum=n_curr.count_bombs();
+                                int freesnum=n_curr.count_free();
+                                if(bombsnum==loc_int){
+                                    n_curr.set_click();
+                                } else if (freesnum==loc_int){
+                                    n_curr.set_bomb();
+                                } else {
+                                    n_curr.smart_solve(mini_grid,store);
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            public void smart_solve(){
-
+            public int[] smart_solve_initiate(StringBuffer mini_grid){
+                StringBuffer work = mini_grid;
+                storage store = new storage();
+                smart_solve(mini_grid,store);
+                return store.sollist;
             }
         }
 
@@ -164,7 +189,7 @@ public class solver {
                 } else if (freesnum==loc_int){
                     curr.set_bomb();
                 } else {
-                    curr.smart_solve();
+                    curr.smart_solve_initiate(curr.key);
                 }
             }
         }
