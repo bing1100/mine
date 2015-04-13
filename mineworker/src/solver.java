@@ -190,7 +190,7 @@ public class solver {
                 return !(((int) mini_grid.charAt(8)) >= 48 && ((int) mini_grid.charAt(8)) != bomb_check(7, 4, 5));
             }
             public void simple(){
-                mini_grid.setCharAt(5, (char) (((int) mini_grid.charAt(5))- count_bombs()));
+                mini_grid.setCharAt(4, (char) (((int) mini_grid.charAt(4))- count_bombs()));
             }
             public void smart_solve(StringBuffer mini_grid, storage store){
                 for(int j =0; j<9;j++){
