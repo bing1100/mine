@@ -13,7 +13,15 @@ public class game_api implements board{
             visible.setCharAt(j,'0');
         }
     }
-    public String get_board_string();
+    public String get_board_secret(){
+        return answer_key.toString();
+    }
+    public String get_board_string(){
+        return visible.toString();
+    }
+    private void create_visible(){
+
+    }
     public void insert_bombs();
-    public void insert_bombs(int [] key);
+    public void insert_bombs(int[] key);
 }
